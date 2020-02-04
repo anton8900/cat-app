@@ -25,13 +25,13 @@ class SavedKittiesFragment: KittyListFragment(), SavedKittiesView {
         setToolbar(getString(R.string.saved_kitties))
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         presenter.loadKitties()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         presenter.release()
     }
 

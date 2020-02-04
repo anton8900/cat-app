@@ -13,22 +13,22 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.simple.cat.app.R
 import com.simple.cat.app.model.Kitty
-import android.app.Activity
 import android.graphics.Point
 import com.bumptech.glide.request.RequestOptions
-
+import com.simple.cat.app.ui.activities.ContainerActivity
 
 class KittyListAdapter(
-    private val context: Activity,
+    private val context: ContainerActivity,
     private val items: ArrayList<Kitty>,
-    private val onClickListener: View.OnClickListener?
+    private val saveClickListener: View.OnClickListener?
 ): RecyclerView.Adapter<KittyListAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val kittyImageView: ImageView = itemView.findViewById(R.id.kitty_image_view)
         val imageLoadingProgress: View = itemView.findViewById(R.id.image_progress)
+        val downloadImageView: View = itemView.findViewById(R.id.download)
         init {
-            if(onClickListener != null) {
-                itemView.setOnClickListener(onClickListener)
+            if(saveClickListener != null) {
+                itemView.setOnClickListener(saveClickListener)
             }
         }
     }
@@ -44,21 +44,28 @@ class KittyListAdapter(
 
         holder.imageLoadingProgress.layoutParams.height = kitty.height
         holder.imageLoadingProgress.visibility = View.VISIBLE
-        Glide.with(context)
-            .load(kitty.url)
-            .listener(object: RequestListener<Drawable> {
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                    holder.imageLoadingProgress.visibility = View.GONE
-                    return false
-                }
 
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                    holder.imageLoadingProgress.visibility = View.GONE
-                    return false
-                }
-            })
-            .apply(RequestOptions().override(kitty.width, kitty.height))
-            .into(holder.kittyImageView)
+        if(kitty.url != null) {
+            Glide.with(context)
+                .load(kitty.url)
+                .listener(object: RequestListener<Drawable> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        holder.imageLoadingProgress.visibility = View.GONE
+                        return false
+                    }
+
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        holder.imageLoadingProgress.visibility = View.GONE
+                        return false
+                    }
+                })
+                .apply(RequestOptions().override(kitty.width, kitty.height))
+                .into(holder.kittyImageView)
+
+            holder.downloadImageView.setOnClickListener{
+                context.saveImage(kitty.url!!)
+            }
+        }
     }
 
     override fun getItemCount(): Int {

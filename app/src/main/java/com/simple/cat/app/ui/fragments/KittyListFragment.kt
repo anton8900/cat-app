@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simple.cat.app.R
 import com.simple.cat.app.model.Kitty
+import com.simple.cat.app.ui.activities.ContainerActivity
 import com.simple.cat.app.ui.lists.KittyListAdapter
 
 open class KittyListFragment() : BaseFragment() {
@@ -23,7 +24,7 @@ open class KittyListFragment() : BaseFragment() {
 
     protected fun loadKittyList(kitties: List<Kitty>, onClickListener: View.OnClickListener? = null) {
         val activity = activity
-        if(activity != null) {
+        if(activity is ContainerActivity) {
             kittyList?.visibility = View.VISIBLE
             kittyList?.adapter = KittyListAdapter(activity, ArrayList(kitties), onClickListener)
         }

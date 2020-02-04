@@ -22,14 +22,14 @@ class LoadKittiesFragment: KittyListFragment(), LoadKittiesView {
         return inflater.inflate(R.layout.fragment_kitty_load, container, false)
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
         kittiesPresenter.loadKitties(false)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
 
         kittiesPresenter.release()
     }
