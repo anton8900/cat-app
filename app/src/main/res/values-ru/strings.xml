@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Котики :)</string>
+
+    <string name="initializing_app">Загрузка котиков, оставайтесь с нами)</string>
+    <string name="more_kitties">Больше котиков</string>
+    <string name="kitty_saved">Этот кот ваш</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+    <string name="all_kitties">Все коты</string>
+    <string name="saved_kitties">Сохраненные коты</string>
+</resources>
