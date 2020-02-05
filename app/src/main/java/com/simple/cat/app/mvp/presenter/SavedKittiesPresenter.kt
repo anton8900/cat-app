@@ -17,7 +17,7 @@ class SavedKittiesPresenter : MvpPresenter<SavedKittiesView>() {
     private var kittiesLoadDisposable: Disposable? = null
 
     init {
-        App.AppComponent!!.inject(this)
+        App.AppComponent?.inject(this)
     }
 
     fun loadKitties() {

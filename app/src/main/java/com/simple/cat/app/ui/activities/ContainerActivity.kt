@@ -17,7 +17,9 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import java.lang.Exception
 
 
 class ContainerActivity: MvpAppCompatActivity() {
@@ -62,10 +64,6 @@ class ContainerActivity: MvpAppCompatActivity() {
     }
 
     fun openFragment(fragment: BaseFragment) {
-        if(fragment is LoadKittiesFragment) {
-            removeAllFragments()
-        }
-
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
@@ -116,11 +114,15 @@ class ContainerActivity: MvpAppCompatActivity() {
     }
 
     private fun save(url: String) {
-        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val request = DownloadManager.Request(Uri.parse(url))
-        request.setDestinationInExternalPublicDir( Environment.DIRECTORY_PICTURES, url);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        downloadManager.enqueue(request)
+        try {
+            val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val request = DownloadManager.Request(Uri.parse(url))
+            request.setDestinationInExternalPublicDir( Environment.DIRECTORY_PICTURES, url);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            downloadManager.enqueue(request)
+        } catch (e: Exception) {
+            Toast.makeText(this, R.string.something_went_wrong, Toast.LENGTH_LONG).show()
+        }
     }
 
     companion object {

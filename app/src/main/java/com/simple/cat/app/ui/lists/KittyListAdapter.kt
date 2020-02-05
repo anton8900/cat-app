@@ -38,16 +38,16 @@ class KittyListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val kitty = items[position]
+        val kitty = getKittyAt(position)
+        val url = kitty?.url
+        if(url != null) {
+            kitty.resize(getDisplayWidth())
 
-        kitty.resize(getDisplayWidth())
+            holder.imageLoadingProgress.layoutParams.height = kitty.height
+            holder.imageLoadingProgress.visibility = View.VISIBLE
 
-        holder.imageLoadingProgress.layoutParams.height = kitty.height
-        holder.imageLoadingProgress.visibility = View.VISIBLE
-
-        if(kitty.url != null) {
             Glide.with(context)
-                .load(kitty.url)
+                .load(url)
                 .listener(object: RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         holder.imageLoadingProgress.visibility = View.GONE
@@ -63,7 +63,7 @@ class KittyListAdapter(
                 .into(holder.kittyImageView)
 
             holder.downloadImageView.setOnClickListener{
-                context.saveImage(kitty.url!!)
+                context.saveImage(url)
             }
         }
     }

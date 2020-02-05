@@ -17,7 +17,7 @@ class App : Application() {
         }
 
         //set locale
-        //LanguageUtils.changeLanguage(Locale(getSharedPreferences("context", Context.MODE_PRIVATE).getString("language", "en")!!), resources)
+        //LanguageUtils.changeLanguage(Locale(getSharedPreferences("context", Context.MODE_PRIVATE).getString("language", "en")), resources)
 
         //dagger
         AppComponent = DaggerAppComponent.builder()

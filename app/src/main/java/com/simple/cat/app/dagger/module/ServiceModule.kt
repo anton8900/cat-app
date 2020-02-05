@@ -2,6 +2,7 @@ package com.simple.cat.app.dagger.module
 
 import android.app.Application
 import com.simple.cat.app.repository.kitty.IKittyRepository
+import com.simple.cat.app.server.api.KittyApi
 import com.simple.cat.app.service.SettingsService
 import com.simple.cat.app.service.kitty.KittyService
 import dagger.Module
@@ -31,5 +32,5 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun provideCatService(kittyRepository: IKittyRepository) = KittyService(kittyRepository)
+    fun provideCatService(kittyRepository: IKittyRepository, kittyApi: KittyApi) = KittyService(kittyRepository, kittyApi)
 }

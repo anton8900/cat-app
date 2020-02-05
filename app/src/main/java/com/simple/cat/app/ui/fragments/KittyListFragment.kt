@@ -15,10 +15,11 @@ open class KittyListFragment() : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        kittyList = view.findViewById(R.id.kitty_list)
+        val kittyList = view.findViewById<View>(R.id.kitty_list)
 
         if(kittyList is RecyclerView) {
-            kittyList?.layoutManager = LinearLayoutManager(application)
+            this.kittyList = kittyList
+            kittyList.layoutManager = LinearLayoutManager(application)
         }
     }
 

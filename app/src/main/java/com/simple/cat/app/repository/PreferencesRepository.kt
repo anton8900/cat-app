@@ -50,7 +50,7 @@ class PreferencesRepository(applicationContext: Context, name: String) {
     }
 
     fun getStringNotNull(key: String, defaultValue: String): String {
-        return preferences.getString(key, defaultValue)!!
+        return preferences.getString(key, defaultValue) ?: ""
     }
 
     fun saveUUID(key: String, value: UUID?) {

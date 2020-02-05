@@ -22,18 +22,6 @@ class LoadKittiesFragment: KittyListFragment(), LoadKittiesView {
         return inflater.inflate(R.layout.fragment_kitty_load, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        kittiesPresenter.loadKitties(false)
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        kittiesPresenter.release()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,7 +30,7 @@ class LoadKittiesFragment: KittyListFragment(), LoadKittiesView {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 if (!recyclerView.canScrollVertically(1)) {
-                    kittiesPresenter.loadKitties(true)
+                    kittiesPresenter.addMoreKitties()
                 }
             }
         })

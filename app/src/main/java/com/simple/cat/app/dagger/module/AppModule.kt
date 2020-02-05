@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AppModule(private var application: Application) {
+class AppModule(private val application: Application) {
     @Provides
     @Singleton
     internal fun providesApplication(): Application = application
